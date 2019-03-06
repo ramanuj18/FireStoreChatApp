@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "339817617360",
+    "firebase_url": "https://firestorechat-bbb2e.firebaseio.com",
+    "project_id": "firestorechat-bbb2e",
+    "storage_bucket": "firestorechat-bbb2e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339817617360:android:21d8e9e4161af5d0",
+        "android_client_info": {
+          "package_name": "com.example.firestorechatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339817617360-qc3a2hdsrctdtklakg14g2amo1vqu1n5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firestorechatapp",
+            "certificate_hash": "ffdc27238124e8a889aa0a462af7724eb16d34f9"
+          }
+        },
+        {
+          "client_id": "339817617360-c0tr79nmcjsbq7ve9nhat2da7ko2pg2p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-SlH0r1v-pkL7G9eRlF7JcV4G4E23MFM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339817617360-c0tr79nmcjsbq7ve9nhat2da7ko2pg2p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

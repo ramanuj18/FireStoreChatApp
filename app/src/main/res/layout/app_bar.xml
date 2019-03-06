@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+    android:orientation="horizontal"
+    android:elevation="5dp"
+        android:background="@color/colorPrimary"
+        >
+    <ImageView
+        android:id="@+id/imageBack"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_left_arrow"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical">
+    <com.example.firestorechatapp.RoundedImageView
+        android:id="@+id/imageProfile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_profile_green"
+        android:foregroundGravity="center_vertical"
+        android:layout_marginLeft="5dp" />
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:textColor="#ffffff"
+        android:textSize="15dp"
+        android:text="Name"
+        android:id="@+id/toolbar_title" />
+        <TextView
+            android:id="@+id/txtOnlineStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:text="online status"
+            android:textColor="@color/color_white"/>
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
