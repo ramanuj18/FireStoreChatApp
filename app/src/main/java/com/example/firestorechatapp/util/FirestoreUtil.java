@@ -107,7 +107,7 @@ public class FirestoreUtil {
         }
 
         //when receiver user read the message then update read status of particular message
-        public static void updateReadStatus(String channelId,String messageId){
+        public static  void updateReadStatus(String channelId,String messageId){
             Map map=new HashMap();
             map.put("read",true);
             chatChannelsCollectionRef.document(channelId).collection("messages").document(messageId).update(map);
