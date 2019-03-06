@@ -52,7 +52,6 @@ public class FireStoreGroupChatUtil {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 final List<PersonItem> item=new ArrayList<>();
-                if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                     queryDocumentSnapshots.getDocuments().forEach(new Consumer<DocumentSnapshot>() {
                         @Override
                         public void accept(DocumentSnapshot documentSnapshot) {
@@ -64,17 +63,6 @@ public class FireStoreGroupChatUtil {
                             }
                         }
                     });
-                }else {
-                    List<DocumentSnapshot> list=queryDocumentSnapshots.getDocuments();
-                    for (DocumentSnapshot doc:list) {
-                        if (doc != null) {
-                            if (!doc.getId().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())) {
-                                item.add(new PersonItem(doc.toObject(User.class), doc.getId()));
-                                /*item.add(documentSnapshot.toObject(User.class));*/
-                            }
-                        }
-                    }
-                }
                 firebaseCallback.getUserList(item);
             }
         });
@@ -108,7 +96,6 @@ public class FireStoreGroupChatUtil {
                    return;
                }
                final List<GroupModel> item=new ArrayList<>();
-               if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                    queryDocumentSnapshots.getDocuments().forEach(new Consumer<DocumentSnapshot>() {
                        @Override
                        public void accept(DocumentSnapshot documentSnapshot) {
@@ -119,9 +106,6 @@ public class FireStoreGroupChatUtil {
                            }
                        }
                    });
-               }else {
-
-               }
                firebaseCallback.getGroupList(item);
            }
        });

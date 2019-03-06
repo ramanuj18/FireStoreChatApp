@@ -123,7 +123,6 @@ public class FirestoreUtil {
                                 return;
                             }
                             final List<PersonItem> item=new ArrayList<>();
-                            if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                                 queryDocumentSnapshots.getDocuments().forEach(new Consumer<DocumentSnapshot>() {
                                     @Override
                                     public void accept(DocumentSnapshot documentSnapshot) {
@@ -136,17 +135,6 @@ public class FirestoreUtil {
                                         }
                                     }
                                 });
-                            }else {
-                                List<DocumentSnapshot> list=queryDocumentSnapshots.getDocuments();
-                                for (DocumentSnapshot doc:list) {
-                                    if (doc != null) {
-                                        if (!doc.getId().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())) {
-                                            item.add(new PersonItem(doc.toObject(User.class), doc.getId()));
-                                            /*item.add(documentSnapshot.toObject(User.class));*/
-                                        }
-                                    }
-                                }
-                            }
                             firebaseCallback.getUserList(item);
                         }
                     });
@@ -203,7 +191,6 @@ public class FirestoreUtil {
                                 return;
                             }
                             final List<MessageItem> items=new ArrayList<>();
-                            if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                                 queryDocumentSnapshots.getDocuments().forEach(new Consumer<DocumentSnapshot>() {
                                     @Override
                                     public void accept(DocumentSnapshot documentSnapshot) {
@@ -211,13 +198,6 @@ public class FirestoreUtil {
                                         Log.d("messageId", documentSnapshot.getId());
                                     }
                                 });
-                            }else {
-                                List<DocumentSnapshot> list=queryDocumentSnapshots.getDocuments();
-                                for (DocumentSnapshot doc:list) {
-                                            items.add(new MessageItem(doc.toObject(TextMessage.class), doc.getId()));
-                                            /*item.add(documentSnapshot.toObject(User.class));*/
-                                }
-                            }
                             firebaseCallback.onListen(items);
                         }
                     });
