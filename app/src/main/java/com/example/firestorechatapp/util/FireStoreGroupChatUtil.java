@@ -73,7 +73,7 @@ public class FireStoreGroupChatUtil {
         newGroup.set(model).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-               new NewGroupActivity().onGroupCreated();
+               firebaseCallback.onGroupCreated();
             }
         });
 

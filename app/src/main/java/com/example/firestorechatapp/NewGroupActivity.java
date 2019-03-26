@@ -95,10 +95,10 @@ public class NewGroupActivity extends AppCompatActivity implements FirebaseCallb
         }
         Log.d("checked",""+userIds.size());
     }
-    public void onGroupCreated(){
-       // Toast.makeText(NewGroupActivity.this, "new Group created", Toast.LENGTH_SHORT).show();
-        NewGroupActivity.this.finish();
+
+    @Override
+    public void onGroupCreated() {
+        Toast.makeText(this, "new group created", Toast.LENGTH_SHORT).show();
+        finish();
     }
-
-
 }

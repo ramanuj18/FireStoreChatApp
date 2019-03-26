@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -221,12 +222,30 @@ public class ChatActivity extends AppCompatActivity implements FirebaseCallback 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == RC_SELECT_IMAGE && resultCode == Activity.RESULT_OK &&
+
+        if(requestCode==RC_SELECT_IMAGE && resultCode==Activity.RESULT_OK && data!=null){
+            if(data.getClipData()!=null){
+                showProgressBar();
+                ClipData mClipData=data.getClipData();
+                for(int i=0;i<mClipData.getItemCount();i++){
+                    ClipData.Item item=mClipData.getItemAt(i);
+                    Uri uri=item.getUri();
+                    StorageUtil.uploadMessageImageFile(uri,this);
+                }
+            }else if(data.getData()!=null){
+                Uri selectedImagePath = data.getData();
+                showProgressBar();
+                StorageUtil.uploadMessageImageFile(selectedImagePath,this);
+            }
+        }
+
+      /*  if (requestCode == RC_SELECT_IMAGE && resultCode == Activity.RESULT_OK &&
                 data != null && data.getData() != null) {
                 Uri selectedImagePath = data.getData();
                 showProgressBar();
                 StorageUtil.uploadMessageImageFile(selectedImagePath,this);
-        }
+        }*/
+
         else if(requestCode==RC_CAMERA && resultCode==Activity.RESULT_OK && data!=null){
             Bitmap selectedImageBmp = (Bitmap) data.getExtras().get("data");
             ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
@@ -309,6 +328,7 @@ public class ChatActivity extends AppCompatActivity implements FirebaseCallback 
                // intent.setType("image/*");
                 intent.setType("file/*");
                intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+               intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
                 startActivityForResult(Intent.createChooser(intent, "Select Image"), RC_SELECT_IMAGE);
                 dialog.dismiss();
             }

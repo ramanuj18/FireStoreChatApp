@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -70,13 +71,12 @@ public class GroupChatActivity extends AppCompatActivity implements FirebaseCall
     private final int RC_SELECT_IMAGE=2;
     private final int RC_CAMERA=3;
         LinearLayoutManager layoutManager;
-    public static final List<String> types = Collections
-            .unmodifiableList(new ArrayList<String>() {
-                {
-                    add("image/jpeg");
-                    add("image/png");
-                }
-            });
+    String[] mimeTypes =
+            {"image/png","image/jpeg","application/msword","application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .doc & .docx
+                    "application/vnd.ms-powerpoint","application/vnd.openxmlformats-officedocument.presentationml.presentation", // .ppt & .pptx
+                    "application/vnd.ms-excel","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xls & .xlsx
+                    "text/plain",
+                    "application/pdf"};
     static final int MY_PERMISSIONS_REQUEST_CAMERA=101;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,8 +180,9 @@ public class GroupChatActivity extends AppCompatActivity implements FirebaseCall
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_MIME_TYPES,types.toArray());
+                intent.setType("file/*");
+                intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
                 startActivityForResult(Intent.createChooser(intent, "Select Image"), RC_SELECT_IMAGE);
                 dialog.dismiss();
             }
@@ -197,12 +198,28 @@ public class GroupChatActivity extends AppCompatActivity implements FirebaseCall
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == RC_SELECT_IMAGE && resultCode == Activity.RESULT_OK &&
+
+        if(requestCode==RC_SELECT_IMAGE && resultCode==RESULT_OK && data!=null){
+            if(data.getClipData()!=null){
+                showProgressBar();
+                ClipData mClipData=data.getClipData();
+                for(int i=0;i<mClipData.getItemCount();i++){
+                    ClipData.Item item=mClipData.getItemAt(i);
+                    Uri uri=item.getUri();
+                    StorageUtil.uploadMessageImageFile(uri,this);
+                }
+            }else if(data.getData()!=null){
+                Uri selectedImagePath = data.getData();
+                showProgressBar();
+                StorageUtil.uploadMessageImageFile(selectedImagePath,this);
+            }
+        }
+        /*if (requestCode == RC_SELECT_IMAGE && resultCode == Activity.RESULT_OK &&
                 data != null && data.getData() != null) {
                 Uri selectedImagePath = data.getData();
                 showProgressBar();
                 StorageUtil.uploadMessageImageFile(selectedImagePath,this);
-        }
+        }*/
         else if(requestCode==RC_CAMERA && resultCode==Activity.RESULT_OK && data!=null){
             Bitmap selectedImageBmp = (Bitmap) data.getExtras().get("data");
             ByteArrayOutputStream outputStream=new ByteArrayOutputStream();

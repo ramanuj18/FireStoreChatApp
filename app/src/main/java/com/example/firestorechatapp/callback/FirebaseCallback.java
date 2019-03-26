@@ -63,4 +63,7 @@ public interface FirebaseCallback {
    default void showToast(){
 
    }
+   default void onGroupCreated(){
+
+   }
 }
