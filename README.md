@@ -1,5 +1,5 @@
 # FireStoreChatApp
-FireStoreChatApp Features:
+# FireStoreChatApp Features:
 
 i) Authenticate user using Google varification using firebase authentication.
 
@@ -12,7 +12,9 @@ iv) Group Chat.
 v) view and update profile.
 
 
-Additional Features:
+
+
+# Additional Features:
 
 i) last seen of user
 
